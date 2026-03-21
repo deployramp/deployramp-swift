@@ -1,0 +1,4 @@
+module DeployRamp {
+    header "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/DeployRamp-Swift.h"
+    requires objc
+}

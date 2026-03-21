@@ -1,0 +1,41 @@
+{
+  "": {
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/master.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/ApiClient.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/ApiClient.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/ApiClient.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/ApiClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/ApiClient.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/Config.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Config.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Config.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Config~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Config.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/DeployRamp.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/DeployRamp.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/DeployRamp.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/DeployRamp~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/DeployRamp.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/FlagCache.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/FlagCache.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/FlagCache.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/FlagCache~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/FlagCache.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/Types.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Types.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Types.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Types~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/Types.swiftdeps"
+  },
+  "/Users/runner/work/deployramp/deployramp/sdks/swift/Sources/DeployRamp/User.swift": {
+    "dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/User.d",
+    "object": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/User.swift.o",
+    "swiftmodule": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/User~partial.swiftmodule",
+    "swift-dependencies": "/Users/runner/work/deployramp/deployramp/sdks/swift/.build/arm64-apple-macosx/debug/DeployRamp.build/User.swiftdeps"
+  }
+}
