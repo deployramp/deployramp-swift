@@ -210,6 +210,53 @@ public final class DeployRamp: @unchecked Sendable {
         flagCache.queueEvaluation(event)
     }
 
+    private static func queuePerformance(
+        name: String,
+        durationMs: Double,
+        branch: String,
+        traitOverrides: [String: String]?
+    ) {
+        lock.lock()
+        let flagCache = cache
+        let traits = mergeTraits(currentTraits, overrides: traitOverrides)
+        lock.unlock()
+
+        guard let flagCache = flagCache else { return }
+
+        let event = PerformanceEvent(
+            flagName: name,
+            durationMs: durationMs,
+            branch: branch,
+            traits: traits,
+            userId: getUserId(),
+            timestamp: Int64(Date().timeIntervalSince1970 * 1000)
+        )
+        flagCache.queuePerformance(event)
+    }
+
+    /// Evaluates a feature flag, executes the appropriate branch, measures its
+    /// execution time, and reports the metric back to DeployRamp.
+    ///
+    /// - Parameters:
+    ///   - name: The flag name.
+    ///   - enabled: The function to run when the flag is enabled.
+    ///   - disabled: The function to run when the flag is disabled.
+    ///   - traitOverrides: Optional trait overrides.
+    /// - Returns: The result of the executed branch.
+    public static func measure<T>(
+        _ name: String,
+        enabled enabledFn: () -> T,
+        disabled disabledFn: () -> T,
+        traitOverrides: [String: String]? = nil
+    ) -> T {
+        let isEnabled = flag(name, traitOverrides: traitOverrides)
+        let start = CFAbsoluteTimeGetCurrent()
+        let result = isEnabled ? enabledFn() : disabledFn()
+        let durationMs = (CFAbsoluteTimeGetCurrent() - start) * 1000
+        queuePerformance(name: name, durationMs: durationMs, branch: isEnabled ? "enabled" : "disabled", traitOverrides: traitOverrides)
+        return result
+    }
+
     /// Reports an error to DeployRamp. Fire-and-forget.
     ///
     /// - Parameters:

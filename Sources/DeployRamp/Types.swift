@@ -83,6 +83,29 @@ struct EvaluationEvent: Codable, Sendable {
     }
 }
 
+// MARK: - Performance Event
+
+/// A performance measurement event sent to the backend for analytics.
+struct PerformanceEvent: Codable, Sendable {
+    let type: String
+    let flagName: String
+    let durationMs: Double
+    let branch: String // "enabled" or "disabled"
+    let traits: [String: String]
+    let userId: String
+    let timestamp: Int64
+
+    init(flagName: String, durationMs: Double, branch: String, traits: [String: String], userId: String, timestamp: Int64) {
+        self.type = "performance"
+        self.flagName = flagName
+        self.durationMs = durationMs
+        self.branch = branch
+        self.traits = traits
+        self.userId = userId
+        self.timestamp = timestamp
+    }
+}
+
 // MARK: - WebSocket Message
 
 /// A message sent or received over the WebSocket connection.
@@ -90,11 +113,13 @@ struct WsMessage: Codable, Sendable {
     let type: String
     let flags: [FlagData]?
     let evaluations: [EvaluationEvent]?
+    let performanceEvents: [PerformanceEvent]?
 
-    init(type: String, flags: [FlagData]? = nil, evaluations: [EvaluationEvent]? = nil) {
+    init(type: String, flags: [FlagData]? = nil, evaluations: [EvaluationEvent]? = nil, performanceEvents: [PerformanceEvent]? = nil) {
         self.type = type
         self.flags = flags
         self.evaluations = evaluations
+        self.performanceEvents = performanceEvents
     }
 }
 

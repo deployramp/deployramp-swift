@@ -14,6 +14,8 @@ final class FlagCache: @unchecked Sendable {
     private var closed = false
     private var evalBatch: [EvaluationEvent] = []
     private var batchTimer: DispatchSourceTimer?
+    private var perfBatch: [PerformanceEvent] = []
+    private var perfBatchTimer: DispatchSourceTimer?
     private var reconnectWorkItem: DispatchWorkItem?
     private let queue = DispatchQueue(label: "com.deployramp.flagcache", qos: .utility)
     private let session: URLSession
@@ -89,6 +91,57 @@ final class FlagCache: @unchecked Sendable {
         lock.unlock()
 
         let message = WsMessage(type: "evaluation_batch", evaluations: batch)
+        sendMessage(message)
+    }
+
+    // MARK: - Performance Batching
+
+    /// Queues a performance event. Flushes when the batch reaches max size or after the batch interval.
+    func queuePerformance(_ event: PerformanceEvent) {
+        lock.lock()
+        perfBatch.append(event)
+        let count = perfBatch.count
+        let timerActive = perfBatchTimer != nil
+        lock.unlock()
+
+        if count >= batchMaxSize {
+            flushPerformance()
+        } else if !timerActive {
+            startPerfBatchTimer()
+        }
+    }
+
+    private func startPerfBatchTimer() {
+        lock.lock()
+        guard perfBatchTimer == nil else {
+            lock.unlock()
+            return
+        }
+        let timer = DispatchSource.makeTimerSource(queue: queue)
+        timer.schedule(deadline: .now() + batchIntervalSeconds)
+        timer.setEventHandler { [weak self] in
+            self?.flushPerformance()
+        }
+        perfBatchTimer = timer
+        lock.unlock()
+        timer.resume()
+    }
+
+    private func flushPerformance() {
+        lock.lock()
+        if let timer = perfBatchTimer {
+            timer.cancel()
+            perfBatchTimer = nil
+        }
+        guard !perfBatch.isEmpty else {
+            lock.unlock()
+            return
+        }
+        let batch = perfBatch
+        perfBatch = []
+        lock.unlock()
+
+        let message = WsMessage(type: "performance_batch", performanceEvents: batch)
         sendMessage(message)
     }
 
@@ -215,6 +268,7 @@ final class FlagCache: @unchecked Sendable {
         lock.unlock()
 
         flushEvaluations()
+        flushPerformance()
 
         lock.lock()
         reconnectWorkItem?.cancel()
@@ -223,6 +277,10 @@ final class FlagCache: @unchecked Sendable {
         if let timer = batchTimer {
             timer.cancel()
             batchTimer = nil
+        }
+        if let timer = perfBatchTimer {
+            timer.cancel()
+            perfBatchTimer = nil
         }
 
         let ws = wsTask
